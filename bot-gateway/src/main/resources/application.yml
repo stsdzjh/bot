@@ -1,0 +1,43 @@
+server:
+  port: 80
+
+spring:
+  application:
+    name: bot-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+      username: nacos
+      password: nacos
+    loadbalancer:
+      ribbon:
+        enabled: false
+
+
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedHeaders: "*"
+            allowedOrigins: "*"
+            allowedMethods:
+              - GET
+                POST
+                DELETE
+                PUT
+                OPTION
+      routes:
+      - id: bot-request
+        uri: lb://bot-request
+        predicates:
+          - Path=/bot/request/**
+
+      - id: bot-auth
+        uri: lb://bot-auth
+        predicates:
+          - Path=/bot/auth/**

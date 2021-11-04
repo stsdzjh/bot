@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="bot-common" />
+        <module name="bot-request" />
+        <module name="bot-gateway" />
+        <module name="bot-server" />
+        <module name="bot-auth" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="bot" target="8" />
+      <module name="bot-auth" target="8" />
+      <module name="bot-common" target="8" />
+      <module name="bot-gateway" target="8" />
+      <module name="bot-request" target="8" />
+      <module name="bot-server" target="8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="bot-auth" options="-parameters" />
+      <module name="bot-common" options="-parameters" />
+      <module name="bot-gateway" options="-parameters" />
+      <module name="bot-request" options="-parameters" />
+      <module name="bot-server" options="-parameters" />
+    </option>
+  </component>
+</project>

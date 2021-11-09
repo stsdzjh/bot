@@ -26,6 +26,7 @@
         <spring-cloud.version>Hoxton.SR8</spring-cloud.version>
         <spring-cloud-alibaba.version>2.2.6.RELEASE</spring-cloud-alibaba.version>
         <docker.repository>harbor.fourany.com</docker.repository>
+
     </properties>
 
     <packaging>pom</packaging>

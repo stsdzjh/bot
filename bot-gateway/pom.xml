@@ -6,14 +6,17 @@
         <artifactId>bot</artifactId>
         <groupId>com.fourany</groupId>
         <version>1.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
     <artifactId>bot-gateway</artifactId>
+    <version>1.0.1</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+        <docker.registry.name>bot</docker.registry.name>
+        <image.timestamp>202111131150</image.timestamp>
     </properties>
 
     <dependencies>
@@ -33,5 +36,36 @@
             <artifactId>spring-cloud-starter-loadbalancer</artifactId>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.4.11</version>
+            </plugin>
+
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.2.2</version>
+
+                <configuration>
+                    <serverId>dockerharbor</serverId>
+                    <registryUrl>https://${docker.repository}</registryUrl>
+                    <dockerHost>http://192.168.1.168:2375</dockerHost>
+                    <imageName>${docker.repository}/${docker.registry.name}/${project.artifactId}:${project.version}-${image.timestamp}</imageName>
+                    <dockerDirectory>${basedir}/</dockerDirectory>
+                    <resources>
+                        <resource>
+                            <targetPath>image</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${pack-name}</include>
+                        </resource>
+                    </resources>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

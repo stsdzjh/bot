@@ -17,7 +17,7 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <docker.registry.name>bot</docker.registry.name>
-        <image.timestamp>202111131150</image.timestamp>
+        <image.timestamp>202111131728</image.timestamp>
     </properties>
 
     <dependencies>

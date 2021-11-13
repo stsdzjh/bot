@@ -16,7 +16,7 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <docker.registry.name>bot</docker.registry.name>
-        <image.timestamp>202111131150</image.timestamp>
+        <image.timestamp>202111132050</image.timestamp>
     </properties>
 
     <dependencies>
@@ -28,6 +28,12 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-gateway</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-web</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- 引入loadbalance，否则报503，因为去除了ribbon -->

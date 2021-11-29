@@ -7,6 +7,20 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 127.0.0.1:8848
+        server-addr: 192.168.1.6:8848
       username: nacos
       password: nacos
+    loadbalancer:
+      ribbon:
+        enabled: false
+
+  datasource:
+    username: ${MYSQL_SERVICE_USER:admin}
+    password: ${MYSQL_SERVICE_PASSWORD:admin0826@stsd.ipcc}
+    url: jdbc:mysql://${MYSQL_SERVICE_HOST:192.168.1.6}:${MYSQL_SERVICE_PORT:3306}/bot?useTimezone=true&serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      minimum-idle: 3
+      maximum-pool-size: 10
+      max-lifetime: 30000
+      connection-test-query: SELECT 1

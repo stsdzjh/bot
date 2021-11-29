@@ -26,6 +26,8 @@
         <spring-cloud.version>Hoxton.SR8</spring-cloud.version>
         <spring-cloud-alibaba.version>2.2.6.RELEASE</spring-cloud-alibaba.version>
         <docker.repository>harbor.fourany.com</docker.repository>
+        <docker.host>192.168.1.168</docker.host>
+        <docker.port>2375</docker.port>
 
     </properties>
 

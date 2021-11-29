@@ -14,6 +14,83 @@
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+        <docker.registry.name>bot</docker.registry.name>
+        <image.timestamp>202111240823</image.timestamp>
     </properties>
 
+
+    <dependencies>
+        <dependency>
+            <groupId>com.fourany</groupId>
+            <artifactId>bot-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>2.3.5.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.4.3.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+
+
+    </dependencies>
+
+    <build>
+        <finalName>${project.artifactId}-${project.version}</finalName>
+
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.4.11</version>
+            </plugin>
+
+
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.2.2</version>
+
+                <configuration>
+                    <serverId>dockerharbor</serverId>
+                    <registryUrl>https://${docker.repository}</registryUrl>
+                    <dockerHost>http://${docker.host}:${docker.port}}</dockerHost>
+                    <imageName>${docker.repository}/${docker.registry.name}/${project.artifactId}:${project.version}-${image.timestamp}</imageName>
+                    <dockerDirectory>${basedir}/</dockerDirectory>
+                    <resources>
+                        <resource>
+                            <targetPath>image</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${pack-name}</include>
+                        </resource>
+                    </resources>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
 </project>

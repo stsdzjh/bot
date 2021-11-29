@@ -35,6 +35,8 @@ public enum ResultInfo {
     USER_NO_ROLE(70001, "用户尚未分配角色"),
     USER_NOT_EXISTIS(70002,"没有此用户"),
     USER_ROLE_NOT_EXISTS(70003,"用户所属角色不存在"),
+
+
     ;
 
 

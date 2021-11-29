@@ -42,8 +42,12 @@ spring:
         predicates:
           - Path=/bot/auth/**
 
-      - id: bot-server
+      - id: bot-server-rasa
         uri: lb://bot-server
         predicates:
           - Path=/bot/server/**
-          - Path=/bot/config/**
+
+      - id: bot-server-config
+          uri: lb://bot-server
+          predicates:
+            - Path=/bot/config/**

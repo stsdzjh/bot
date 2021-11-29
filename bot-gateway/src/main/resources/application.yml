@@ -48,6 +48,6 @@ spring:
           - Path=/bot/server/**
 
       - id: bot-server-config
-          uri: lb://bot-server
-          predicates:
-            - Path=/bot/config/**
+        uri: lb://bot-server
+        predicates:
+          - Path=/bot/config/**

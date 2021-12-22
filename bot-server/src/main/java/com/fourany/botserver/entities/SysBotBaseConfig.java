@@ -22,6 +22,8 @@ public class SysBotBaseConfig {
 
     private String policies;
 
+    private String session;
+
     @TableField(fill = FieldFill.INSERT)
     private Date createTime;
 

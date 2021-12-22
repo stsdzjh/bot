@@ -6,6 +6,8 @@ import com.fourany.botauth.services.SysRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @Description: TODO
  * @author: zhangjh
@@ -20,4 +22,6 @@ public class SysRoleServiceImpl implements SysRoleService {
     public SysRole getSysRoleById(String id) {
         return sysRoleMapper.getSysRoleById(id);
     }
+
+
 }

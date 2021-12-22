@@ -8,6 +8,6 @@ import java.util.List;
 
 @Mapper
 public interface SysNavMapper {
-    @Select("select * from sys_navs order by `order` asc")
+    @Select("select * from sys_navs order by `display_order` asc")
     public List<SysNav> queryAll();
 }

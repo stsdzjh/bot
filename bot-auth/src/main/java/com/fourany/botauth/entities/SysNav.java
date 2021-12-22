@@ -10,17 +10,14 @@ import lombok.Data;
 @Data
 public class SysNav {
     private String id;
-    private String name;
-    private String parentId;
     private String path;
-    private String redirect;
     private String component;
+    private String redirect;
+    private Boolean alwaysShow;
+    private String name;
     private String title;
     private String icon;
-    private Boolean hiddenHeaderContent;
-    private Boolean hideHeader;
-    private Boolean hideChildren;
-    private Boolean show;
-    private String target;
+    private String parentId;
+    private String displayOrder;
 
 }

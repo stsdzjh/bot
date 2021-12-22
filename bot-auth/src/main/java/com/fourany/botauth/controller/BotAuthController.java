@@ -127,33 +127,35 @@ public class BotAuthController {
             return R.result(ResultInfo.USER_NOT_EXISTIS,null);
         }
 
-        SysUserRole sysUserRole = sysUserRoleService.getSysUserRoleByUserId(sysUser.getId());
-        if(sysUserRole == null){
+        List<SysUserRole> roleList = sysUserRoleService.querySysUserRoleByUserId(sysUser.getId());
+
+        if(roleList.size() <= 0){
             return R.result(ResultInfo.USER_NO_ROLE,null);
         }
-        SysRole sysRole = sysRoleService.getSysRoleById(sysUserRole.getRid());
-        if(sysRole == null){
-            return R.result(ResultInfo.USER_ROLE_NOT_EXISTS,null);
+
+        //多角色处理
+        JSONArray roleArray = new JSONArray();
+        for(SysUserRole userRole : roleList){
+            SysRole sysRole = sysRoleService.getSysRoleById(userRole.getRid());
+            //处理权限
+            List<SysRolePermission> sysRolePermissionList = sysRolePermissionService.querySysRolePermissionByRoleId(sysRole.getId());
+            JSONArray permissions = new JSONArray();
+            for(SysRolePermission sysRolePermission : sysRolePermissionList){
+                SysPermission sysPermission = sysPermissionService.getPermissionById(sysRolePermission.getPermissionId());
+                JSONObject sysPermissionJson = new JSONObject();
+                sysPermissionJson.set("roleId",sysRolePermission.getRoleId());
+                sysPermissionJson.set("permissionId",sysRolePermission.getPermissionId());
+                sysPermissionJson.set("permissionName",sysPermission.getName());
+                permissions.add(sysPermissionJson);
+            }
+
+            JSONObject sysRoleJson = JSONUtil.parseObj(sysRole);
+            sysRoleJson.set("permissions", permissions);
+            roleArray.add(sysRoleJson);
         }
-
-        //处理权限
-        List<SysRolePermission> sysRolePermissionList = sysRolePermissionService.querySysRolePermissionByRoleId(sysRole.getId());
-        JSONArray permissions = new JSONArray();
-        for(SysRolePermission sysRolePermission : sysRolePermissionList){
-            SysPermission sysPermission = sysPermissionService.getPermissionById(sysRolePermission.getPermissionId());
-            JSONObject sysPermissionJson = new JSONObject();
-            sysPermissionJson.set("roleId",sysRolePermission.getRoleId());
-            sysPermissionJson.set("permissionId",sysRolePermission.getPermissionId());
-            sysPermissionJson.set("permissionName",sysPermission.getName());
-            permissions.add(sysPermissionJson);
-        }
-
-        JSONObject sysRoleJson = JSONUtil.parseObj(sysRole);
-        sysRoleJson.set("permissions", permissions);
-
 
         userInfo = JSONUtil.parseObj(sysUser);
-        userInfo.set("role", sysRoleJson);
+        userInfo.set("roles", roleArray);
         return R.result(ResultInfo.DEFAULT_SUCCESS,userInfo);
         /*
 
@@ -210,10 +212,6 @@ public class BotAuthController {
             JSONObject metaObject = new JSONObject();
             metaObject.set("title", sysNav.getTitle());
             metaObject.set("icon", sysNav.getIcon());
-            metaObject.set("show", sysNav.getShow());
-            metaObject.set("hiddenHeaderContent", sysNav.getHiddenHeaderContent());
-            metaObject.set("hideHeader", sysNav.getHideHeader());
-            metaObject.set("hideChildren", sysNav.getHideChildren());
             navObject.set("meta", metaObject);
             navArray.add(navObject);
         }
